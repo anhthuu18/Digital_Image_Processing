@@ -27,6 +27,7 @@ def configure():
 eventlist_fruit=['','1. Sầu Riêng','2. Táo','3. Thanh Long','4. Chuối','5. Nho']
 eventlist_1=['','1. Negative Image.','2. Lograrit ảnh.','3. Lũy thừa ảnh.','4. Biến đổi tuyến tính từng phần.','5. Histogram','6. Cân bằng Histogram','7. Cân bằng Histogram của ảnh màu.','8. Local Histogram.','9. Thống kê Histogram','10. Lọc Box','11. Lọc Gauss','12. Phân Ngưỡng','13. Lọc Median','14. Sharpen','15. Gradient']
 eventlist_4_0=['','1. Spectrum','2. Lọc trong miền tần số','3. Vẽ bộ lọc note-reject','4. Xóa nhiễu Moire']
+eventlist_5=['','1. Tạo Nhiễu Ảnh','2. Lọc Ảnh Ít Nhiễu','3. Lọc Ảnh Nhiều Nhiễu']
 eventlist_9=['','1. PhiLeGa','2. HatGao']
 
 def img_to_bytes(img_path):
@@ -43,6 +44,9 @@ def Get_XyLyAnh_C3():
 def Get_XyLyAnh_C4_0():
     return chosen_event1
 
+def Get_XyLyAnh_C5():
+    return chosen_event3
+
 def Get_XyLyAnh_C9():
     return chosen_event2
 
@@ -54,6 +58,9 @@ def Get_Index_Image():
 
 def Get_Index_Image_C4_0():
     return eventlist_4_0.index(chosen_event1)
+
+def Get_Index_Image_C5():
+    return eventlist_5.index(chosen_event3)
 
 def Get_Index_Image_C9():
     return eventlist_9.index(chosen_event2)
@@ -97,6 +104,15 @@ def switch_page_images_C4_0(chosen_event):
     if chosen_event != chosen_event_old_C4_0:
         chosen_event_old_C4_0 = chosen_event
         switch_page('Image_Processing_Chapter4')
+
+chosen_event_old_C5 = ''
+def switch_page_images_C5(chosen_event):
+    global chosen_event_old_C5
+    if chosen_event == '':
+        return
+    if chosen_event != chosen_event_old_C5:
+        chosen_event_old_C5 = chosen_event
+        switch_page('Image_Processing_Chapter5')
 
 chosen_event_old_C9 = ''
 def switch_page_images_C9(chosen_event):
@@ -151,6 +167,15 @@ def cs_sidebar():
     if chosen_event1 != '':
         switch_page_images_C4_0(chosen_event1)
     
+    global chosen_event3
+    chosen_event3 = st.sidebar.selectbox(
+        '8. Xử lý ảnh _ Chương 5', 
+        eventlist_5,
+        key='select_ch5'
+    )
+    if chosen_event3 != '':
+        switch_page_images_C5(chosen_event3)
+
     global chosen_event2
     chosen_event2 = st.sidebar.selectbox(
         '9. Xử lý ảnh _ Chương 9', 

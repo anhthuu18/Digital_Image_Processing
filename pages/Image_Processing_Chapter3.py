@@ -155,14 +155,3 @@ if __name__=="__main__":
     cs_sidebar()
     XuLyAnh()
     Image_All()
-    
-    # Footer với định dạng thời gian
-    current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
-    st.markdown("---")
-    st.markdown(
-        f"""<div style='text-align: center'>
-        <small>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): {current_time}</small><br>
-        <small>Current User's Login: anhthuu18</small>
-        </div>""",
-        unsafe_allow_html=True
-    )
