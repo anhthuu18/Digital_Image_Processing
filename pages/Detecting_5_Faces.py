@@ -5,15 +5,6 @@ import joblib
 from datetime import datetime
 import av
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, RTCConfiguration
-import os
-
-# Kiểm tra xem sklearn có được cài đặt không
-try:
-    from sklearn.svm import SVC
-    from sklearn.preprocessing import LabelEncoder
-except ImportError:
-    st.error("Thư viện 'scikit-learn' chưa được cài đặt. Hãy chạy lệnh: pip install scikit-learn")
-    raise
 
 # Thiết lập trang
 st.set_page_config(
@@ -34,48 +25,35 @@ RTC_CONFIGURATION = RTCConfiguration(
     ]}
 )
 
-# Khởi tạo session state để lưu danh sách người được nhận diện
+# Khởi tạo session state để lưu danh sách người được nhận diện cho phần upload
 if 'upload_recognized' not in st.session_state:
     st.session_state.upload_recognized = set()
 
 class FaceRecognition(VideoProcessorBase):
     def __init__(self):
-        # Định nghĩa đường dẫn tới các file
-        detector_path = "pages/Source/KhuonMat/face_detection_yunet_2023mar.onnx"
-        recognizer_path = "pages/Source/KhuonMat/face_recognition_sface_2021dec.onnx"
-        svc_path = "pages/Source/KhuonMat/svc.pkl"
-        encoder_path = "pages/Source/KhuonMat/label_encoder.pkl"
-
-        # Kiểm tra xem các file có tồn tại không
-        for path in [detector_path, recognizer_path, svc_path, encoder_path]:
-            if not os.path.exists(path):
-                st.error(f"File không tồn tại: {path}")
-                raise FileNotFoundError(f"File không tồn tại: {path}")
-
-        # Khởi tạo mô hình phát hiện khuôn mặt với tham số điều chỉnh
         self.detector = cv2.FaceDetectorYN.create(
-            detector_path,
+            "pages/Source/KhuonMat/face_detection_yunet_2023mar.onnx",
             "",
             (640, 640),
-            0.7,  # Giảm score_threshold để phát hiện dễ hơn
-            0.5,  # Tăng nms_threshold để tránh bỏ sót khuôn mặt gần nhau
+            0.7,  # Giảm ngưỡng tin cậy để tăng khả năng phát hiện
+            0.3,
             5000
         )
         self.recognizer = cv2.FaceRecognizerSF.create(
-            recognizer_path,
+            "pages/Source/KhuonMat/face_recognition_sface_2021dec.onnx",
             ""
         )
-        self.svc = joblib.load(svc_path)
-        self.encoder = joblib.load(encoder_path)
+        self.svc = joblib.load('pages/Source/KhuonMat/svc.pkl')
+        self.encoder = joblib.load('pages/Source/KhuonMat/label_encoder.pkl')
 
     def process_frame_realtime(self, img):
         height, width = img.shape[:2]
         self.detector.setInputSize((width, height))
         faces = self.detector.detect(img)
         
-        # Debug: In số lượng khuôn mặt phát hiện được
+        print(f"Realtime - Detected faces: {len(faces[1]) if faces[1] is not None else 0}")
+        
         if faces[1] is not None:
-            st.write(f"Phát hiện {len(faces[1])} khuôn mặt trong khung hình realtime")
             face_count = min(len(faces[1]), 5)
             for i in range(face_count):
                 try:
@@ -103,10 +81,9 @@ class FaceRecognition(VideoProcessorBase):
                               cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                               (0, 0, 0), 2)
                 except Exception as e:
-                    st.error(f"Error processing face: {str(e)}")
+                    st.error(f"Error processing face in realtime: {str(e)}")
+                    print(f"Error in realtime face processing: {str(e)}")
                     continue
-        else:
-            st.write("Không phát hiện được khuôn mặt nào trong khung hình realtime")
         return img
 
     def process_frame_upload(self, img):
@@ -114,9 +91,9 @@ class FaceRecognition(VideoProcessorBase):
         self.detector.setInputSize((width, height))
         faces = self.detector.detect(img)
         
-        # Debug: In số lượng khuôn mặt phát hiện được
+        print(f"Upload - Detected faces: {len(faces[1]) if faces[1] is not None else 0}")
+        
         if faces[1] is not None:
-            st.write(f"Phát hiện {len(faces[1])} khuôn mặt trong ảnh/video upload")
             face_count = min(len(faces[1]), 5)
             for i in range(face_count):
                 try:
@@ -147,10 +124,9 @@ class FaceRecognition(VideoProcessorBase):
                               cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                               (0, 0, 0), 2)
                 except Exception as e:
-                    st.error(f"Error processing face: {str(e)}")
+                    st.error(f"Error processing face in upload: {str(e)}")
+                    print(f"Error in upload face processing: {str(e)}")
                     continue
-        else:
-            st.write("Không phát hiện được khuôn mặt nào trong ảnh/video upload")
         return img
 
     def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
@@ -164,6 +140,9 @@ def process_uploaded_media(file, media_type):
     
     if media_type == "image":
         image = np.array(cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR))
+        if image is None:
+            st.error("Không thể đọc file ảnh. Vui lòng thử file khác.")
+            return None
         processed_image = processor.process_frame_upload(image)
         return processed_image
     
@@ -171,6 +150,9 @@ def process_uploaded_media(file, media_type):
         with open("temp_video.mp4", "wb") as f:
             f.write(file.read())
         cap = cv2.VideoCapture("temp_video.mp4")
+        if not cap.isOpened():
+            st.error("Không thể mở file video. Vui lòng thử file khác.")
+            return None
         stframe = st.empty()
         
         while cap.isOpened():

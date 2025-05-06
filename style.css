@@ -1,15 +1,35 @@
-[data-testid="metric-container"] {
-  box-shadow: 0 0 3px #cccccc;
-  padding: 10px;
+/* Sidebar */
+[class="contract-trigger"] {
+  font-size: 24px;
+}
+[data-testid="stSidebarNav"] {
+  display: none;
+}
+/* Căn trái văn bản trong sidebar */
+section[data-testid="stSidebar"] p {
+  text-align: left !important;
+}
+/* Nếu dùng st.sidebar.markdown(...) thì cần style markdown ở đây */
+section[data-testid="stSidebar"] .stMarkdown {
+  text-align: left !important;
 }
 
-.plot-container > div {
-  box-shadow: 0 0 3px #cccccc;
+/* Home */
+h1,
+h3 {
+  color: #2c3e50;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
 }
-.css-1dj0hjr {
-  color: rgb(150, 150, 150);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: table-cell;
+.stMarkdown p {
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  color: #34495e;
+}
+img:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+.stColumn {
+  padding: 8px;
 }

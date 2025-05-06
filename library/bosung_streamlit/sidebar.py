@@ -187,3 +187,7 @@ def cs_sidebar():
     
     st.sidebar.markdown('''<hr>''', unsafe_allow_html=True)
     st.sidebar.markdown('''<small>[22110242 - 22110204]</small>''', unsafe_allow_html=True)
+    
+def configure():
+    with open("style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
