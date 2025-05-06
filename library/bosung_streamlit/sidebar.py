@@ -138,7 +138,7 @@ def cs_sidebar():
         switch_page('PhuongTrinhBacHai')
         
     if st.sidebar.button('2. Nhận diện 5 khuôn mặt', key='btn_faces'):
-        switch_page('Detecting_5_faces')
+        switch_page('Detecting_5_Faces')
     
     global chosen_event_fruit
     chosen_event_fruit = st.sidebar.selectbox(
