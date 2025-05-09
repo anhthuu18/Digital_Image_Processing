@@ -111,7 +111,7 @@ class FaceRecognition(VideoProcessorBase):
                     # Vẽ bbox và label lên ảnh/video tải lên
                     cv2.rectangle(img, 
                                 (coords[0], coords[1]), 
-                                (coords[0]+coords[2], coords[1]+coords[3]), 
+                                (coords[0]+coords[2], coords[1]+coords[3]), -
                                 (0, 255, 0), 2)
                     label = f"{name} ({confidence:.2f})"
                     label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)[0]

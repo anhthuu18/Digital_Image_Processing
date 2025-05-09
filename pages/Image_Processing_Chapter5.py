@@ -3,8 +3,8 @@ from PIL import Image
 import cv2
 import numpy as np
 sys.path.append('../library')
-from library.bosung_streamlit.sidebar import *
-from library.bosung_streamlit.Chapter05 import *
+from library.sidebar import *
+from library.Chapter05 import *
 
 # Danh sách ảnh mẫu cho Chapter 5
 list_images_c5 = ['',
@@ -97,6 +97,7 @@ def Image_MoreDenoiseMotion():
         temp = cv2.medianBlur(imgin, 7)
         # Sau đó áp dụng denoise motion
         output_image = DenoiseMotion(temp)
+
         c2.image(output_image, caption='Kết quả lọc nhiễu nhiều')
     except Exception as e:
         st.error(f"Lỗi khi lọc nhiễu: {str(e)}")

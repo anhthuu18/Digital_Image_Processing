@@ -3,8 +3,8 @@ from PIL import Image
 import cv2
 import numpy as np
 sys.path.append('../library')
-from library.bosung_streamlit.sidebar import *
-from library.bosung_streamlit.Chapter04 import *
+from library.sidebar import *
+from library.Chapter04 import *
 
 # Sửa lại list ảnh cho đúng với yêu cầu
 list_images_c4_0 = ['','1. Spectrum.png','2. Highpass filter.png','','3. Moire.png']

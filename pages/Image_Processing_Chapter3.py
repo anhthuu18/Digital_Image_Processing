@@ -2,10 +2,9 @@ import sys
 from PIL import Image
 import cv2
 import numpy as np
-from datetime import datetime
 sys.path.append('../library')
-from library.bosung_streamlit.sidebar import *
-from library.bosung_streamlit.Chapter03 import *
+from library.sidebar import *
+from library.Chapter03 import *
 
 list_images_c3 = ['','1. Negative Image.png','2. Logarit Image.png','3. LuyThua.png','4. BienDoiTuyenTinhTungPhan.png','5. Histogram.png','6. Can Bang Histogram.png','7. Can Bang Histogram Anh Mau.png','8. Local Histogram.png','9. Thong Ke Histogram.png','10. Loc Box.png','11. Loc Gauss.png','12. PhanNguong.png','13. Loc_Median.png','14. Shapen.png','15. Gradient.png']
 

@@ -1,55 +1,58 @@
-from library.bosung_streamlit.sidebar import *
-from PIL import Image
+from library.sidebar import *
 import streamlit as st
 
 def Display_Info():
-    # Tiêu đề chính với biểu tượng
-    st.title("🎨 Project Cuối kỳ môn Xử Lý Ảnh Số")
+    # Tiêu đề chính
+    st.title("🎨 PROJECT CUỐI KỲ MÔN XỬ LÝ ẢNH SỐ")
 
     # Tên thành viên
-    st.markdown("#### 👥 Thành viên thực hiện:")
-    st.markdown("- Trần Huy Hạnh Phúc - 22110204")
-    st.markdown("- Trương Thị Anh Thư - 22110242")
+    st.markdown("# 👥 Thành viên thực hiện:")
+    st.markdown("### Trần Huy Hạnh Phúc - 22110204")
+    st.markdown("### Trương Thị Anh Thư - 22110242")
 
-    # Dòng phân cách
     st.markdown("---")
 
-    # Hàng 1: Danh nhân & nghệ thuật
-    st.markdown("### 🧠 Danh nhân và Nghệ thuật")
-    c1, c2, c3 = st.columns(3)
+    st.markdown("### 📚 Nội dung thực hiện")
 
-    with c1:
-        st.image(Image.open('images/einstein.jpg'), use_column_width=True)
-        st.markdown("**Albert Einstein**  \nHình ảnh của nhà khoa học vĩ đại.")
+    # Chia giao diện thành 2 cột
+    col1, col2 = st.columns(2)
 
-    with c2:
-        st.image(Image.open('images/monalisa.jpg'), use_column_width=True)
-        st.markdown("**Mona Lisa**  \nTác phẩm nghệ thuật nổi tiếng của Leonardo da Vinci.")
+    with col1:
+        st.markdown("#### 📘 Chương 3: Xử lý hình học")
+        st.markdown("- Tịnh tiến, quay, scale, affine.")
+        st.markdown("- Biến đổi vị trí và kích thước ảnh.")
 
-    with c3:
-        st.image(Image.open('images/lena.jpg'), use_column_width=True)
-        st.markdown("**Lena**  \nHình ảnh tiêu chuẩn trong xử lý ảnh số.")
+        st.markdown("#### 📗 Chương 4: Mức xám & Histogram")
+        st.markdown("- Chuyển ảnh sang xám, âm bản.")
+        st.markdown("- Cân bằng histogram, Otsu.")
+
+        st.markdown("#### 📕 Chương 5: Lọc không gian & Biên")
+        st.markdown("- Làm mờ: Trung bình, Gaussian, Median.")
+        st.markdown("- Phát hiện biên: Sobel, Laplacian.")
+
+        st.markdown("#### 🎨 Chương 9: Ảnh nghệ thuật")
+        st.markdown("- Tạo hiệu ứng sketch, cartoon.")
+        st.markdown("- Biến đổi phong cách ảnh.")
+
+    with col2:
+        st.markdown("#### 🧑‍💻 Nhận dạng khuôn mặt")
+        st.markdown("- 5 khuôn mặt với 2 model `.onnx`:")
+        st.markdown("- `yunet` – phát hiện khuôn mặt.")
+        st.markdown("- `sface` – trích xuất đặc trưng.")
+        st.markdown("- Huấn luyện SVM để nhận dạng.")
+
+        st.markdown("#### 🍎 Nhận dạng trái cây (YOLOv8n)")
+        st.markdown("- 5 loại trái cây nhận dạng bằng YOLOv8n.")
+        st.markdown("- Huấn luyện trên Google Colab.")
+        st.markdown("- Triển khai hiển thị trên Streamlit.")
+
+        st.markdown("#### 🧮 Giải phương trình bậc hai")
+        st.markdown("- Nhập hệ số a, b, c.")
+        st.markdown("- Tính và hiển thị nghiệm.")
+
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Hàng 2: Tác phẩm - Thiên nhiên - Động vật
-    st.markdown("### 🌄 Thiên nhiên và nghệ thuật")
-    c4, c5, c6 = st.columns(3)
-
-    with c4:
-        st.image(Image.open('images/starry_night.jpg').resize((256, 256)), use_column_width=True)
-        st.markdown("**Starry Night**  \nBức tranh kinh điển của Vincent van Gogh.")
-
-    with c5:
-        st.image(Image.open('images/sunset.png'), use_column_width=True)
-        st.markdown("**Hoàng hôn**  \nPhong cảnh thiên nhiên yên bình.")
-
-    with c6:
-        st.image(Image.open('images/squirrel_cls.jpg').resize((256, 256)), use_column_width=True)
-        st.markdown("**Sóc**  \nHình ảnh minh họa phân loại động vật.")
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    # CSS tùy chỉnh
 def configure():
     with open("style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)

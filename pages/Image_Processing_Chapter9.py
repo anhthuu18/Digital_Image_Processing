@@ -3,8 +3,8 @@ from PIL import Image
 import cv2
 import numpy as np
 sys.path.append('../library')
-from library.bosung_streamlit.sidebar import *
-from library.bosung_streamlit.Chapter09 import *
+from library.sidebar import *
+from library.Chapter09 import *
 
 list_images_c9 = ['','1. PhiLeGa.png','2. HatGao.png']
 

@@ -6,7 +6,7 @@ from ultralytics import YOLO
 from PIL import Image
 import sys
 sys.path.append('../library')
-from library.bosung_streamlit.sidebar import *
+from library.sidebar import *
 
 # Đường dẫn model PT
 model_path = "pages/Source/NhanDienTraiCayYolov8n/best.pt"
@@ -20,7 +20,7 @@ list_images_fruit = [
     '1. Sau Rieng.jpg',
     '2. Tao.jpg',
     '3. Thanh Long.jpg',
-    '4. Chuoi.jpg',
+    '4. Chuoi.png',
     '5. Nho.jpg'
 ]
 

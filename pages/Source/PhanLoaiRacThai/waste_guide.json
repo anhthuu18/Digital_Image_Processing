@@ -1,0 +1,34 @@
+{
+  "waste_types": {
+    "RacThaiKinh": {
+      "description": "Rác thủy tinh bao gồm chai, lọ, và các vật dụng làm từ thủy tinh.",
+      "recycling_guidance": "Để tái chế thủy tinh ở Việt Nam, bạn nên rửa sạch các vật dụng thủy tinh và tách chúng ra khỏi các loại rác khác. Bạn có thể bán chúng cho người thu gom ve chai hoặc đưa đến các trung tâm tái chế nếu có. Một số nhà cung cấp bên thứ ba như VECA hoặc Ve Chai Chu Hoa cũng nhận mua thủy tinh để tái chế.",
+      "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
+    },
+    "RacThaiGiay": {
+      "description": "Rác giấy bao gồm sách, vở, giấy in, bìa cứng, v.v.",
+      "recycling_guidance": "Để tái chế giấy ở Việt Nam, bạn nên giữ giấy khô ráo, không dính dầu mỡ. Bạn có thể bán chúng cho người thu gom ve chai hoặc đưa đến các trung tâm tái chế nếu có. Một số công ty cũng mua giấy để tái chế.",
+      "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
+    },
+    "BiaCarton": {
+      "description": "Rác bìa carton bao gồm hộp carton, bìa cứng, v.v.",
+      "recycling_guidance": "Để tái chế bìa carton ở Việt Nam, bạn nên giữ bìa carton khô ráo, không dính dầu mỡ. Bạn có thể bán chúng cho người thu gom ve chai hoặc đưa đến các trung tâm tái chế nếu có. Một số nhà máy tái chế cũng mua bìa carton để xử lý.",
+      "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
+    },
+    "RacHuuCo": {
+      "description": "Rác hữu cơ bao gồm thức ăn thừa, vỏ rau củ, lá cây, v.v.",
+      "recycling_guidance": "Để tái chế rác hữu cơ ở Việt Nam, bạn có thể phân loại và ủ phân tại nhà hoặc đưa đến các điểm thu gom rác hữu cơ để xử lý thành phân bón. Một số tổ chức như Zero Waste Vietnam cũng khuyến khích việc composting rác hữu cơ.",
+      "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
+    },
+    "RacDienTu": {
+      "description": "Rác điện tử bao gồm máy tính, điện thoại di động, tivi, tủ lạnh, v.v.",
+      "recycling_guidance": "Để tái chế rác điện tử ở Việt Nam, bạn có thể tham gia chương trình Việt Nam Tái Chế, một chương trình thu hồi và tái chế rác thải điện tử miễn phí do các nhà sản xuất thiết bị điện tử khởi xướng. Bạn cũng có thể bán chúng cho các nhà tái chế hoặc đưa đến các trung tâm tái chế nếu có.",
+      "disposal_method": "Nếu không thể tái chế, vui lòng không vứt vào thùng rác thông thường vì rác điện tử chứa các chất độc hại. Thay vào đó, hãy đưa đến các điểm thu gom rác điện tử hoặc tham gia các chương trình thu hồi."
+    },
+    "RacKimLoai": {
+      "description": "Rác kim loại bao gồm lon nhôm, đồ dùng kim loại, vỏ hộp kim loại, v.v.",
+      "recycling_guidance": "Để tái chế rác kim loại ở Việt Nam, bạn có thể bán chúng cho các nhà tái chế hoặc đưa đến các trung tâm tái chế nếu có. Một số công ty cũng mua kim loại để tái chế.",
+      "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
+    }
+  }
+}
