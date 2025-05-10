@@ -215,7 +215,11 @@ def cs_sidebar():
     st.sidebar.markdown('''Nội Dung Làm Thêm:''', unsafe_allow_html=True)
     
     if st.sidebar.button('1. Giải phương trình bậc 2', key='btn_ptb2'):
-        switch_page('PhuongTrinhBacHai')
+        switch_page('Quadratic_Equation')
+
+    if st.sidebar.button('11. Quản lý bãi đỗ xe', key='btn_parking'):
+        switch_page('Parking_Management')
+
 
     global chosen_event_trash
     chosen_event_trash = st.sidebar.selectbox(

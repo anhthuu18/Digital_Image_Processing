@@ -5,11 +5,17 @@ import cv2
 from ultralytics import YOLO
 from PIL import Image
 import sys
+import json
+
+# Thêm đường dẫn thư viện nếu cần
 sys.path.append('../library')
 from library.sidebar import *
 
 # Đường dẫn model PT
 model_path = "pages/Source/PhanLoaiRacThai/best.pt"
+
+# Đường dẫn file JSON
+json_path = "pages/Source/PhanLoaiRacThai/waste_guide.json"
 
 # Danh sách tên lớp
 class_names = ['RacThaiKinh', 'RacThaiGiay', 'BiaCarton', 'RacHuuCo', 'RacDienTu', 'RacKimLoai']
@@ -25,39 +31,17 @@ list_images_trash = [
     '6. RacKimLoai.jpg'
 ]
 
-# Dữ liệu hướng dẫn tái chế (từ JSON)
-waste_types = {
-    "RacThaiKinh": {
-        "description": "Rác thủy tinh bao gồm chai, lọ, và các vật dụng làm từ thủy tinh.",
-        "recycling_guidance": "Để tái chế thủy tinh ở Việt Nam, bạn nên rửa sạch các vật dụng thủy tinh và tách chúng ra khỏi các loại rác khác. Bạn có thể bán chúng cho người thu gom ve chai hoặc đưa đến các trung tâm tái chế nếu có. Một số nhà cung cấp bên thứ ba như VECA hoặc Ve Chai Chu Hoa cũng nhận mua thủy tinh để tái chế.",
-        "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
-    },
-    "RacThaiGiay": {
-        "description": "Rác giấy bao gồm sách, vở, giấy in, bìa cứng, v.v.",
-        "recycling_guidance": "Để tái chế giấy ở Việt Nam, bạn nên giữ giấy khô ráo, không dính dầu mỡ. Bạn có thể bán chúng cho người thu gom ve chai hoặc đưa đến các trung tâm tái chế nếu có. Một số công ty cũng mua giấy để tái chế.",
-        "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
-    },
-    "BiaCarton": {
-        "description": "Rác bìa carton bao gồm hộp carton, bìa cứng, v.v.",
-        "recycling_guidance": "Để tái chế bìa carton ở Việt Nam, bạn nên giữ bìa carton khô ráo, không dính dầu mỡ. Bạn có thể bán chúng cho người thu gom ve chai hoặc đưa đến các trung tâm tái chế nếu có. Một số nhà máy tái chế cũng mua bìa carton để xử lý.",
-        "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
-    },
-    "RacHuuCo": {
-        "description": "Rác hữu cơ bao gồm thức ăn thừa, vỏ rau củ, lá cây, v.v.",
-        "recycling_guidance": "Để tái chế rác hữu cơ ở Việt Nam, bạn có thể phân loại và ủ phân tại nhà hoặc đưa đến các điểm thu gom rác hữu cơ để xử lý thành phân bón. Một số tổ chức như Zero Waste Vietnam cũng khuyến khích việc composting rác hữu cơ.",
-        "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
-    },
-    "RacDienTu": {
-        "description": "Rác điện tử bao gồm máy tính, điện thoại di động, tivi, tủ lạnh, v.v.",
-        "recycling_guidance": "Để tái chế rác điện tử ở Việt Nam, bạn có thể tham gia chương trình Việt Nam Tái Chế, một chương trình thu hồi và tái chế rác thải điện tử miễn phí do các nhà sản xuất thiết bị điện tử khởi xướng. Bạn cũng có thể bán chúng cho các nhà tái chế hoặc đưa đến các trung tâm tái chế nếu có.",
-        "disposal_method": "Nếu không thể tái chế, vui lòng không vứt vào thùng rác thông thường vì rác điện tử chứa các chất độc hại. Thay vào đó, hãy đưa đến các điểm thu gom rác điện tử hoặc tham gia các chương trình thu hồi."
-    },
-    "RacKimLoai": {
-        "description": "Rác kim loại bao gồm lon nhôm, đồ dùng kim loại, vỏ hộp kim loại, v.v.",
-        "recycling_guidance": "Để tái chế rác kim loại ở Việt Nam, bạn có thể bán chúng cho các nhà tái chế hoặc đưa đến các trung tâm tái chế nếu có. Một số công ty cũng mua kim loại để tái chế.",
-        "disposal_method": "Nếu không thể tái chế, vui lòng vứt vào thùng rác thông thường, nhưng lưu ý rằng điều này sẽ góp phần vào rác thải ở bãi chôn lấp."
-    }
-}
+# Đọc dữ liệu từ file JSON
+try:
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        waste_types = data.get("waste_types", {})  # Lấy cấp "waste_types" từ JSON
+except FileNotFoundError:
+    st.error(f"Không tìm thấy file {json_path}. Vui lòng kiểm tra đường dẫn.")
+    waste_types = {}
+except json.JSONDecodeError:
+    st.error(f"File {json_path} không đúng định dạng JSON. Vui lòng kiểm tra nội dung file.")
+    waste_types = {}
 
 # Load model
 @st.cache_resource
@@ -109,6 +93,8 @@ def process_image(img_array, selected_class=None):
                     st.write(f"- **Hướng dẫn tái chế**: {waste_types[cls_name]['recycling_guidance']}")
                     st.write(f"- **Phương pháp xử lý nếu không tái chế được**: {waste_types[cls_name]['disposal_method']}")
                     st.markdown("---")
+                else:
+                    st.warning(f"Không tìm thấy thông tin tái chế cho loại rác: {cls_name}")
 
 def display_results(img, results, selected_class=None):
     output_img = img.copy()
@@ -180,8 +166,6 @@ def process_detection():
                 process_image(img_array, selected_trash)
             else:
                 st.error(f"Không tìm thấy file ảnh: {default_image_path}")
-    else:
-        st.info("Vui lòng chọn loại rác từ sidebar để tiếp tục.")
 
 if __name__ == "__main__":
     configure()
