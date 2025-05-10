@@ -1,4 +1,4 @@
-from library.sidebar import *
+from library.sidebar import * 
 import streamlit as st
 
 def Display_Info():
@@ -12,7 +12,7 @@ def Display_Info():
 
     st.markdown("---")
 
-    st.markdown("### 📚 Nội dung thực hiện")
+    st.markdown("### 📚 NỘI DUNG THỰC HIỆN")
 
     # Chia giao diện thành 2 cột
     col1, col2 = st.columns(2)
@@ -34,11 +34,15 @@ def Display_Info():
         st.markdown("- Tạo hiệu ứng sketch, cartoon.")
         st.markdown("- Biến đổi phong cách ảnh.")
 
+        st.markdown("#### 🧮 Giải phương trình bậc hai")
+        st.markdown("- Nhập hệ số a, b, c.")
+        st.markdown("- Tính và hiển thị nghiệm.")
+
     with col2:
         st.markdown("#### 🧑‍💻 Nhận dạng khuôn mặt")
-        st.markdown("- 5 khuôn mặt với 2 model `.onnx`:")
-        st.markdown("- `yunet` – phát hiện khuôn mặt.")
-        st.markdown("- `sface` – trích xuất đặc trưng.")
+        st.markdown("- 5 khuôn mặt với 2 model .onnx:")
+        st.markdown("- yunet – phát hiện khuôn mặt.")
+        st.markdown("- sface – trích xuất đặc trưng.")
         st.markdown("- Huấn luyện SVM để nhận dạng.")
 
         st.markdown("#### 🍎 Nhận dạng trái cây (YOLOv8n)")
@@ -46,10 +50,15 @@ def Display_Info():
         st.markdown("- Huấn luyện trên Google Colab.")
         st.markdown("- Triển khai hiển thị trên Streamlit.")
 
-        st.markdown("#### 🧮 Giải phương trình bậc hai")
-        st.markdown("- Nhập hệ số a, b, c.")
-        st.markdown("- Tính và hiển thị nghiệm.")
+        st.markdown("### ♻️ Phân loại rác (YOLOv8n + JSON)")
+        st.markdown("- Nhận diện 6 loại rác thải.")
+        st.markdown("- Tự động hiển thị thông tin và hướng dẫn tái chế.")
+        st.markdown("- Dùng file JSON để hiển thị nội dung động.")
 
+        st.markdown("### 🅿️ Quản lý bãi đỗ xe")
+        st.markdown("- Nhận diện 6 loại rác thải.")
+        st.markdown("- Tự động hiển thị thông tin và hướng dẫn tái chế.")
+        st.markdown("- Dùng file JSON để hiển thị nội dung động.")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
