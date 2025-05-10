@@ -65,21 +65,28 @@ class FaceRecognition(VideoProcessorBase):
                     prediction = self.svc.predict(face_feature.reshape(1, -1))[0]
                     name = self.encoder.inverse_transform([prediction])[0]
                     
-                    # Vẽ bbox và label trực tiếp lên video
+                    # Vẽ bbox xung quanh khuôn mặt
                     cv2.rectangle(img, 
-                                (coords[0], coords[1]), 
-                                (coords[0]+coords[2], coords[1]+coords[3]), 
-                                (0, 255, 0), 2)
+                                  (coords[0], coords[1]), 
+                                  (coords[0]+coords[2], coords[1]+coords[3]), 
+                                  (0, 255, 0),  # Màu xanh lá
+                                  2)  # Độ dày viền
+                    
+                    # Vẽ nền cho nhãn
                     label = f"{name} ({confidence:.2f})"
                     label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)[0]
                     cv2.rectangle(img, 
-                                (coords[0], coords[1] - label_size[1] - 10),
-                                (coords[0] + label_size[0], coords[1]),
-                                (0, 255, 0), -1)
+                                  (coords[0], coords[1] - label_size[1] - 10),
+                                  (coords[0] + label_size[0], coords[1]),
+                                  (0, 255, 0),  # Màu xanh lá
+                                  -1)  # Điền kín
+                    
+                    # Vẽ văn bản nhãn
                     cv2.putText(img, label,
-                              (coords[0], coords[1] - 5),
-                              cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                              (0, 0, 0), 2)
+                                (coords[0], coords[1] - 5),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                                (0, 0, 0),  # Màu đen
+                                2)
                 except Exception as e:
                     st.error(f"Error processing face in realtime: {str(e)}")
                     print(f"Error in realtime face processing: {str(e)}")
@@ -108,21 +115,28 @@ class FaceRecognition(VideoProcessorBase):
                     # Thêm tên vào danh sách nhận diện cho phần upload
                     st.session_state.upload_recognized.add(name)
                     
-                    # Vẽ bbox và label lên ảnh/video tải lên
+                    # Vẽ bbox xung quanh khuôn mặt
                     cv2.rectangle(img, 
-                                (coords[0], coords[1]), 
-                                (coords[0]+coords[2], coords[1]+coords[3]), -
-                                (0, 255, 0), 2)
+                                  (coords[0], coords[1]), 
+                                  (coords[0]+coords[2], coords[1]+coords[3]), 
+                                  (0, 255, 0),  # Màu xanh lá
+                                  2)  # Độ dày viền
+                    
+                    # Vẽ nền cho nhãn
                     label = f"{name} ({confidence:.2f})"
                     label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)[0]
                     cv2.rectangle(img, 
-                                (coords[0], coords[1] - label_size[1] - 10),
-                                (coords[0] + label_size[0], coords[1]),
-                                (0, 255, 0), -1)
+                                  (coords[0], coords[1] - label_size[1] - 10),
+                                  (coords[0] + label_size[0], coords[1]),
+                                  (0, 255, 0),  # Màu xanh lá
+                                  -1)  # Điền kín
+                    
+                    # Vẽ văn bản nhãn
                     cv2.putText(img, label,
-                              (coords[0], coords[1] - 5),
-                              cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                              (0, 0, 0), 2)
+                                (coords[0], coords[1] - 5),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                                (0, 0, 0),  # Màu đen
+                                2)
                 except Exception as e:
                     st.error(f"Error processing face in upload: {str(e)}")
                     print(f"Error in upload face processing: {str(e)}")

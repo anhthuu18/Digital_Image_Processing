@@ -40,7 +40,7 @@ def Display_Info():
 
     with col2:
         st.markdown("#### 🧑‍💻 Nhận dạng khuôn mặt")
-        st.markdown("- 5 khuôn mặt với 2 model .onnx:")
+        st.markdown("- 5 khuôn mặt với 2 model .onnx")
         st.markdown("- yunet – phát hiện khuôn mặt.")
         st.markdown("- sface – trích xuất đặc trưng.")
         st.markdown("- Huấn luyện SVM để nhận dạng.")
@@ -56,9 +56,9 @@ def Display_Info():
         st.markdown("- Dùng file JSON để hiển thị nội dung động.")
 
         st.markdown("### 🅿️ Quản lý bãi đỗ xe")
-        st.markdown("- Nhận diện 6 loại rác thải.")
-        st.markdown("- Tự động hiển thị thông tin và hướng dẫn tái chế.")
-        st.markdown("- Dùng file JSON để hiển thị nội dung động.")
+        st.markdown("- Dùng YOLOv8n để nhận diện xe ô tô.")
+        st.markdown("- Vẽ chỗ đậu xe trống bằng canvas.")
+        st.markdown("- Đếm số xe và hiển thị chỗ còn trống.")
 
     st.markdown("<br>", unsafe_allow_html=True)
 

@@ -120,13 +120,16 @@ def main():
         # Left column
         with col1:
             st.markdown("### 📸 Khu vực vẽ vùng đỗ xe")
+           # Đoạn thay thế trong phần hiển thị ảnh canvas
+            canvas_width = min(1000, display_img.shape[1])
+
             canvas_result = st_canvas(
                 fill_color="rgba(0, 255, 0, 0.3)",
                 stroke_width=2,
                 background_image=Image.fromarray(display_img),
                 update_streamlit=True,
                 height=display_img.shape[0],
-                width=display_img.shape[1],
+                width=canvas_width,
                 drawing_mode="rect",
                 key="canvas",
             )
